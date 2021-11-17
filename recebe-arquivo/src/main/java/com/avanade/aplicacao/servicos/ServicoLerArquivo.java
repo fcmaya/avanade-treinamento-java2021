@@ -1,6 +1,7 @@
 package com.avanade.aplicacao.servicos;
 
 import com.avanade.aplicacao.model.PedidoModel;
+import com.avanade.aplicacao.utils.PedidoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class ServicoLerArquivo {
@@ -42,8 +44,8 @@ public class ServicoLerArquivo {
             }
 
             if (campos[0].equals("C")){
-                pedidoCorrente = criarPedido(campos);
-                pedidos.add(pedidoCorrente);
+                Optional<PedidoModel> pedidoOpt = PedidoUtils.criarPedido(campos);
+                //pedidos.add(pedidoOpt);
                 continue;
             }
         }
@@ -51,11 +53,5 @@ public class ServicoLerArquivo {
         return pedidos;
     }
 
-    private  PedidoModel criarPedido (String...campos){
-        int idx = 1;
-        PedidoModel pedido = PedidoModel.builder()
-                .codigo(Integer.valueOf(campos[idx++]))
-                .build();
-        return null;
-    }
+
 }
